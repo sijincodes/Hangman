@@ -5,7 +5,7 @@ import Keyboard from "./Keyboard";
 
 import words from "./wordList.json";
 
-function getWord (){
+function getWord() {
   return words[Math.floor(Math.random() * words.length)];
 }
 
@@ -17,9 +17,9 @@ function App() {
   );
 
   const isLoser = incorrectLetters.length >= 6;
-  const isWinner = wordToGuess.split("").every((letter) => {
-    guessedLetters.includes(letter);
-  });
+ const isWinner = wordToGuess
+    .split("")
+    .every(letter => guessedLetters.includes(letter))
 
   const addGuessedLetter = useCallback(
     (letter: string) => {
@@ -86,7 +86,7 @@ function App() {
       <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} reveal={isLoser} />
       <div style={{ alignSelf: "stretch" }}>
         <Keyboard
-          disabled={isLoser || isWinner}
+          disabled={isWinner || isLoser }
           activeLetter={guessedLetters.filter((elm) =>
             wordToGuess.includes(elm)
           )}
