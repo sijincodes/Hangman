@@ -1,5 +1,5 @@
 import React from "react";
-import "./Keyboard.css"
+import "./Keyboard.css";
 const KEYS = [
   "a",
   "b",
@@ -28,20 +28,41 @@ const KEYS = [
   "y",
   "z",
 ];
+interface Props {
+  activeLetter ?: string[];
+  inactiveLetters: string[];
+  addGuessedLetter: (letter: string) => void;
+  disabled:boolean
+}
 
-function Keyboard() {
+function Keyboard({ activeLetter, inactiveLetters, addGuessedLetter ,disabled=false}: Props) {
   return (
     <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(75px, 1fr))",
-      gap: ".5rem",
-    }}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(75px, 1fr))",
+        gap: ".5rem",
+      }}
     >
-      {KEYS.map(elm=> <button key={elm} className="btn">{elm}</button>)}
+      {KEYS.map((elm) => {
+        const isActive = activeLetter.includes(elm);
+        const isInactive = inactiveLetters.includes(elm);
+        return (
+          <button
+         
+            key={elm}
+            className={`btn ${isActive ? "active" : ""} ${
+              isInactive ? "inactive" : ""
+            }`}
+            onClick={() => addGuessedLetter(elm)}
+            disabled={isActive || isInactive || disabled}
+          >
+            {elm}
+          </button>
+        );
+      })}
     </div>
   );
 }
 
 export default Keyboard;
-

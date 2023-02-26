@@ -2,11 +2,12 @@ import React from "react";
 
 interface Props {
   guessedLetters : string[],
-  wordToGuess: string
+  wordToGuess: string,
+  reveal ?:boolean
 }
 
 
-function HangmanWord({guessedLetters,wordToGuess}:Props) {
+function HangmanWord({guessedLetters,wordToGuess,reveal=false}:Props) {
  
   return (
     <div
@@ -21,7 +22,8 @@ function HangmanWord({guessedLetters,wordToGuess}:Props) {
     >{
       wordToGuess.split('').map((elm,index)=>
         <span key={index} style={{borderBottom:"0.1em solid black"}}>
-          <span style={{visibility:guessedLetters.includes(elm)?"visible" : "hidden"}}>{elm}</span>
+          <span style={{visibility:guessedLetters.includes(elm)|| reveal ? "visible" : "hidden",
+        color: !guessedLetters.includes(elm)&& reveal ? "red" : "black" }}>{elm}</span>
         </span>
       )
     }</div>
